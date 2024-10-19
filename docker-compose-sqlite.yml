@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  webapp:
+    image: webapp
+    ports:
+      - "3000:3000"
+    volumes:
+      - db_volume:/webapp/database
+    depends_on:
+      - database
+
+
+  database:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: webapp_db 
+      MYSQL_USER: webapp_user   
+      MYSQL_PASSWORD: webapp_password  
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  tests:
+      image: webapp
+      depends_on:
+        - webapp
+      environment:
+        - API_URL=http://webapp:3000
+      command: ["yarn", "test"]
+
+
+volumes:
+  db_volume:
+  mysql_data:
+

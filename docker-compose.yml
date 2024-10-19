@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  webapp:
+    image: webapp
+    ports:
+      - "3000:3000"
+    volumes:
+      - db_volume:/webapp/database
+
+volumes:
+  db_volume:
