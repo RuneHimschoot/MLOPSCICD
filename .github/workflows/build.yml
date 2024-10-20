@@ -1,9 +1,11 @@
 ---
 name: Build and test
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,11 +24,15 @@ jobs:
       - name: Run linter
         run: yarn lint
 
-      - name: Build and push Docker
-        uses: docker/build-push-action@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: runilo/webapp2:latest
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          tags: runilo/webapp:latest
