@@ -27,6 +27,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: runilo/webapp:latest
+          tags: runilo/webapp2:latest
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
