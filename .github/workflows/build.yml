@@ -20,6 +20,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+      
+        - name: Set ESLint config environment variable
+        run: echo "ESLINT_USE_FLAT_CONFIG=false" >> $GITHUB_ENV
 
       - name: Run linter
         run: yarn lint --fix
